@@ -1,2 +1,2 @@
-# sistema-logistica
+# projeto-sistema-logistica
 Projeto para desenvolvimento de um sistema completo de gerenciamento logístico, focado no aprendizado prático de backend com PHP e SQL, estruturação de banco de dados relacional e futura integração com front-end React. Este repositório acompanha todas as etapas de criação do sistema: modelagem de dados, construção do banco via Python + SQL, aplicação backend em PHP e interface simples com React JS. O foco está em criar uma solução funcional, didática e aplicável ao mercado.
