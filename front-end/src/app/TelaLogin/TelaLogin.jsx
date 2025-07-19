@@ -1,3 +1,5 @@
+"use client";
+
 import './TelaLogin.css';
 import { useEffect } from 'react';
 
@@ -11,12 +13,12 @@ function TelaLogin() {
   }, []);
 
   return (
-    <div className="wrapper" style={{ backgroundImage: 'url(/assets/img/logistica.jpg)' }}>
+    <div className="wrapper" style={{ backgroundImage: 'url(../TelaLogin/img/logistica.jpg)' }}>
       <div className="login-box">
         <h2>Sistema de Logística</h2>
       <form>
         <div className="input-box">
-          <label for="username" className="label">Nome de Usuário</label>
+          <label for="username" className="label"><b>Nome de Usuário</b></label>
           <div className="input-field">
             <i className="bx bx-user icon"></i>
             <input type="text" id="username" placeholder="Entrar com usuário" required />
@@ -24,7 +26,7 @@ function TelaLogin() {
         </div>
 
         <div className="input-box">
-          <label for="password" class="label">Senha</label>
+          <label for="password" className="label"><b>Senha</b></label>
           <div className="input-field">
             <i className="bx bx-lock-alt icon"></i>
             <input type="password" id="password" placeholder="Entrar com senha" required />
@@ -32,11 +34,11 @@ function TelaLogin() {
         </div>
 
         <div className="remember-forgot">
-          <label><input type="checkbox" /> Lembrar-me</label>
-          <a href="#">Esqueceu a senha?</a>
+          <label><input type="checkbox" /> <b>Lembrar-me</b></label>
+          <a href="#"><b>Esqueceu a senha?</b></a>
         </div>
 
-        <button type="submit" class="btn" id="botao-logar">Entrar</button>
+        <button type="submit" className="btn" id="botao-logar">Entrar</button>
 
         <div className="register">
           <p><b>Não possui uma conta? <a href="#"> <br/> Cadastre-se aqui</a></b></p>
