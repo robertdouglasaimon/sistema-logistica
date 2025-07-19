@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "logistica-db",
+            "group": "logistica-db",
+            "database": "${workspaceFolder:projeto-sistema-logistica}/banco-dados/logistica-db.db"
+        }
+    ]
+}
