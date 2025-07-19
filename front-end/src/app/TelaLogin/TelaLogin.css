@@ -1,0 +1,149 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Poppins", sans-serif;
+}
+
+:root {
+--primary-color: #4487FA;
+--white: #fff;
+--black: #000;
+--glass: rgba(255, 255, 255, 0.1);
+}
+
+body {
+background-image: url("../TelaLogin/img/logistica.jpg"); /* personalize aqui */
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.wrapper {
+background-color: var(--glass);
+backdrop-filter: blur(10px);
+padding: 40px;
+border-radius: 15px;
+box-shadow: 0 0 10px rgba(0,0,0,0.3);
+width: 350px;
+color: var(--white);
+}
+
+.login-box h2 {
+text-align: center;
+margin-bottom: 30px;
+}
+
+.input-box {
+margin-bottom: 20px;
+}
+
+.label {
+display: block;
+margin-bottom: 5px;
+font-size: 14px;
+transition: all 0.3s ease;
+}
+
+.input-field {
+display: flex;
+align-items: center;
+background-color: rgba(255,255,255,0.2);
+border-radius: 8px;
+padding: 10px;
+transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.input-field input {
+border: none;
+background: transparent;
+outline: none;
+color: var(--white);
+width: 100%;
+padding-left: 10px;
+}
+
+.input-field .icon {
+color: var(--white);
+font-size: 18px;
+}
+
+/* Hover effect */
+.input-field:hover,
+.input-field:focus-within {
+background-color: rgba(255,255,255,0.3);
+transform: scale(1.03);
+}
+
+.remember-forgot {
+display: flex;
+justify-content: space-between;
+font-size: 14px;
+margin-bottom: 20px;
+}
+
+.remember-forgot a {
+color: var(--white);
+text-decoration: none;
+}
+
+.remember-forgot a:hover {
+text-decoration: underline;
+}
+
+.btn {
+width: 100%;
+padding: 10px;
+background-color: var(--primary-color);
+border: none;
+border-radius: 8px;
+color: var(--white);
+font-size: 16px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+background-color: #236DFA;
+}
+
+.register {
+text-align: center;
+margin-top: 15px;
+font-size: 14px;
+}
+
+.register a {
+color: var(--white);
+text-decoration: none;
+}
+
+.register a:hover {
+text-decoration: underline;
+}
+
+footer {
+    color: #fafeff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+footer a {
+    color: #fbffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #010307;
+    transition: 0.5s;
+    font-size: large;
+    font-weight: 900;
+}

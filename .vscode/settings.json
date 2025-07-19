@@ -5,7 +5,7 @@
             "driver": "SQLite",
             "name": "logistica-db",
             "group": "logistica-db",
-            "database": "${workspaceFolder:projeto-sistema-logistica}/banco-dados/logistica-db.db"
+            "database": "${workspaceFolder:sistema-logistica}/banco-dados/logistica-db.db"
         }
     ]
 }
