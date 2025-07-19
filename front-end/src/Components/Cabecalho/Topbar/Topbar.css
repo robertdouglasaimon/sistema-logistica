@@ -1,0 +1,53 @@
+.topbar {
+  width: calc(100% - 16rem); /* se sidebar tem 16rem */
+  background-color: #f3f4f6;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid #d1d5db; 
+  
+  /*Para posicionar o carai da barra em cima kkk'*/
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 16rem; 
+  z-index: 50;
+}
+
+.topbar-info {
+  text-align: right;
+}
+
+.topbar-nome {
+  font-weight: 600;
+  display: block;
+  font-size: 1rem;
+}
+
+.topbar-cargo {
+  font-size: 0.875rem;
+  color: #4b5563; /* gray-700 */
+}
+
+.topbar-logout {
+  background: none;
+  border: none;
+  color: #ef4444; /* red-500 */
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.topbar-logout:hover {
+  color: #dc2626; /* red-600 */
+}
+
+.logout-icon {
+  width: 18px;
+  height: 18px;
+}
