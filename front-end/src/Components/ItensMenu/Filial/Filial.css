@@ -1,0 +1,72 @@
+ .filial-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0;
+  height: 100%;
+}
+
+.filial-box {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.filial-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #333333;
+  text-align: center;
+}
+
+.filial-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.filial-label {
+  display: inline-block;
+  width: 175px; /* ou 150px, depende do seu gosto */
+  font-weight: 600;
+  padding-left: 100px;
+  margin-bottom: 0.25rem;
+  margin-right: 15px;
+  color: #444444;
+}
+
+.filial-input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  color: #333;
+  font-size: 1rem;
+}
+
+.filial-input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+}
+
+.filial-button {
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filial-button:hover {
+  background-color: #0056b3;
+}
