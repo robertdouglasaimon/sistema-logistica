@@ -3,66 +3,72 @@ import "./Empresa.css";
 import { useState } from "react";
 
 function Empresa() {
+  // Estado de cada campo
   const [cnpj, setCnpj] = useState("");
   const [telefone, setTelefone] = useState("");
   const [endereco, setEndereco] = useState("");
+  const [razaoSocial, setRazaoSocial] = useState("");
+  const [nomeFantasia, setNomeFantasia] = useState("");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
 
-  const salvarDadosEmpresa = (e) => {
+
+  // Função de submit — evita erro de tela e serve de base
+  const salvarDados = (e) => {
     e.preventDefault();
-    console.log("Dados enviados:", { cnpj, telefone, endereco });
+    console.log("Empresa cadastrada:", {
+      cnpj,
+      telefone,
+      endereco,
+      razaoSocial,
+      nomeFantasia,
+      email,
+      status
+    });
 
     // Aqui vai vir lógica para enviar os dados para o backend.
   };
 
   return (
-    <section className="empresa-section">
-      <div className="empresa-box">
-        <h1 className="empresa-title">Cadastro de Empresas</h1>
+    <div className="empresa-tela">
 
-        <form onSubmit={salvarDadosEmpresa} className="empresa-form">
-          <div>
-            <label className="empresa-label">CNPJ</label>
-            <input
-              type="text"
-              value={cnpj}
-              onChange={(e) => setCnpj(e.target.value)}
-              className="empresa-input"
-              placeholder="Digite o CNPJ da empresa"
-              required
-            />
-          </div>
+      <section className="empresa-busca">
+        <h2>Buscar Empresas</h2>
+        <div className="filtro-campos">
+          <input type="text" placeholder="Nome Fantasia" />
+          <input type="text" placeholder="CNPJ" />
+          <input type="text" placeholder="Status" />
+          <button>Filtrar</button>
+        </div>
+      </section>
 
-          <div>
-            <label className="empresa-label">Telefone</label>
-            <input
-              type="text"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-              className="empresa-input"
-              placeholder="(xx) xxxx-xxxx"
-              required
-            />
-          </div>
+      <section className="empresa-lista">
+        <h2>Lista de Empresas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome Fantasia</th>
+              <th>CNPJ</th>
+              <th>Telefone</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* registros mockados ou reais */}
+          </tbody>
+        </table>
+      </section>
 
-          <div>
-            <label className="empresa-label">Endereço</label>
-            <input
-              type="text"
-              value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
-              className="empresa-input"
-              placeholder="Rua, número, bairro, cidade"
-              required
-            />
-          </div>
-
-          <button type="submit" className="empresa-button">
-            Salvar Empresa
-          </button>
+      <section className="empresa-cadastro">
+        <h2>Cadastro de Empresa</h2>
+        <form onSubmit={salvarDados}>
+          {/* campos de nome fantasia, cnpj, telefone, etc */}
+          <button type="submit">Salvar</button>
         </form>
-      </div>
-    </section>
+      </section>
+
+    </div>
   );
-}
+};
 
 export default Empresa;
