@@ -1,6 +1,6 @@
 "use client";
 import "./Empresa.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Empresa() {
   // Estado de cada campo
@@ -8,67 +8,145 @@ function Empresa() {
   const [telefone, setTelefone] = useState("");
   const [endereco, setEndereco] = useState("");
   const [razaoSocial, setRazaoSocial] = useState("");
-  const [nomeFantasia, setNomeFantasia] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
 
+  // Lista de empresas
+  const [empresas, setEmpresas] = useState([]);
 
-  // Função de submit — evita erro de tela e serve de base
+  // Mensagem de sucesso
+  const [mensagemSucesso, setMensagemSucesso] = useState(false);
+
+  useEffect(() => {
+    buscarEmpresas();
+  }, []);
+
+  const buscarEmpresas = () => {
+    fetch("http://localhost:3001/Empresa")
+      .then((response) => response.json())
+      .then((data) => setEmpresas(data))
+      .catch((error) => console.error("Erro ao buscar dados:", error));
+  };
+
+  const limparCampos = () => {
+    setCnpj("");
+    setTelefone("");
+    setEndereco("");
+    setRazaoSocial("");
+    setEmail("");
+    setStatus("");
+  };
+
   const salvarDados = (e) => {
     e.preventDefault();
-    console.log("Empresa cadastrada:", {
+
+    const novaEmpresa = {
       cnpj,
       telefone,
       endereco,
       razaoSocial,
-      nomeFantasia,
       email,
       status
-    });
+    };
 
-    // Aqui vai vir lógica para enviar os dados para o backend.
+    fetch("http://localhost:3001/Empresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(novaEmpresa)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Empresa cadastrada com ID:", data.id);
+
+        // Atualiza lista, mostra mensagem e limpa campos
+        buscarEmpresas();
+        setMensagemSucesso(true);
+        limparCampos();
+        setTimeout(() => setMensagemSucesso(false), 3000);
+      })
+      .catch((error) => console.error("Erro ao cadastrar empresa:", error));
   };
 
   return (
     <div className="empresa-tela">
-
+      {/* BUSCA */}
       <section className="empresa-busca">
-        <h2>Buscar Empresas</h2>
+        <h2 className="busca-empresa-title">Buscar Empresa</h2>
         <div className="filtro-campos">
-          <input type="text" placeholder="Nome Fantasia" />
+          <input type="text" placeholder="Nome Fantasia" className="label-input-busca" />
           <input type="text" placeholder="CNPJ" />
-          <input type="text" placeholder="Status" />
-          <button>Filtrar</button>
+          <button className="bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold">Filtrar</button>
         </div>
       </section>
 
+      {/* LISTA */}
       <section className="empresa-lista">
-        <h2>Lista de Empresas</h2>
+        <h2 className="lista-empresa-title">Lista de Empresas</h2>
         <table>
           <thead>
             <tr>
-              <th>Nome Fantasia</th>
+              <th>Razão Social</th>
               <th>CNPJ</th>
               <th>Telefone</th>
+              <th>Endereço</th>
+              <th>Email</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {/* registros mockados ou reais */}
+            {empresas.map((empresa, index) => (
+              <tr key={index}>
+                <td>{empresa.razao_social}</td>
+                <td>{empresa.cnpj}</td>
+                <td>{empresa.telefone}</td>
+                <td>{empresa.endereco}</td>
+                <td>{empresa.email}</td>
+                <td>{empresa.status}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </section>
 
+      {/* CADASTRO */}
       <section className="empresa-cadastro">
-        <h2>Cadastro de Empresa</h2>
+        <h2 className="cadastro-empresa-title">Cadastro de Empresa</h2>
         <form onSubmit={salvarDados}>
-          {/* campos de nome fantasia, cnpj, telefone, etc */}
-          <button type="submit">Salvar</button>
+          <div className="campos-cadastro-empresa">
+            <label><b>Razão Social:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite a Razão Social" value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)} />
+            </label>
+            <label><b>CNPJ:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} />
+            </label>
+            <label><b>Telefone:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+            </label>
+            <label><b>Endereço:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Endereço" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
+            </label>
+            <label><b>Email:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </label>
+            <label><b>Status:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Status" value={status} onChange={(e) => setStatus(e.target.value)} />
+            </label>
+          </div>
+
+          {/* MENSAGEM SUCESSO */}
+          {mensagemSucesso && (
+            <div className="mensagem-sucesso">
+              🎉 Empresa cadastrada com sucesso!
+            </div>
+          )}
+
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition font-semibold pl-18 botao-salvar">Salvar</button>
         </form>
       </section>
-
     </div>
   );
-};
+}
 
 export default Empresa;

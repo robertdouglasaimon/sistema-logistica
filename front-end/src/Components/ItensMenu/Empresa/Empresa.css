@@ -2,3 +2,152 @@ body {
   color: #333;
 }
 
+/* Estilos relacionados a busca de empresas */
+.empresa-busca {
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.empresa-busca h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.busca-empresa-title {
+  position: relative;
+  right: 10.8rem;
+  margin-top: 2rem;
+  /* padding-bottom: 0rem; */
+}
+
+input {
+  width: 200px;        
+  height: 40px;        
+  border: 2px solid #f8ecec;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: left;
+  margin: 0px;
+}
+
+.label-input-busca {
+  position: relative;
+  left: -15px;
+  padding-right: 10px;
+}
+/*----------------------------------------------------------------------*/
+
+
+/* Estilos relacionados a lista de empresas ----------------------------*/
+.empresa-lista {
+  padding: 2rem;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.empresa-lista h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.lista-empresa-title {
+  position: relative;
+  right: 10rem;
+  margin-top: 2rem;
+  /* padding-bottom: 0rem; */
+}
+
+
+/* Tabela base */
+.empresa-lista table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* Cabeçalho da tabela */
+.empresa-lista th {
+  background-color: #eaeaea;
+  padding: 0.8rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Linhas da tabela */
+.empresa-lista td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Alternância de cor nas linhas (opcional) */
+.empresa-lista tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+/*----------------------------------------------------------------------*/
+
+/* Estilos relacionados ao cadastro da empresa ------------------------*/
+.cadastro-empresa-title {
+  position: relative;
+  right: 8.9rem;
+  margin-top: 2rem;
+  /* padding-bottom: 0rem; */
+}
+
+.empresa-cadastro h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.campos-cadastro-empresa label {
+  width: 100vh;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-basis: 150px; /* define a largura das labels */
+}
+
+.campos-cadastro-empresa input {
+  margin-left: auto; /* move o input para o centro */
+}
+
+/* Estilo para a mensagem de sucesso */
+.mensagem-sucesso {
+  background-color: #D4EDDA;
+  color: #155724;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+button[type="submit"] {
+  display: flex;
+  margin-top: 20px;
+  margin-left: auto;
+  align-items: center;
+  
+  position: relative;
+  right: 23rem;
+}
+
+.botao-salvar {
+  width: 200px;
+  text-align: center;
+}
