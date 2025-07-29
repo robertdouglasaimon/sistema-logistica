@@ -11,11 +11,39 @@ function Empresa() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
 
+  // Filtros
   // Lista de empresas
   const [empresas, setEmpresas] = useState([]);
+  // Filtro de nome fantasia do item campo de buscar empresa 
+  const [empresasFiltradas, setEmpresasFiltradas] = useState([]);
+  const [filtroNomeFantasia, setFiltroNomeFantasia] = useState("");
+  const [filtroCnpj, setFiltroCnpj] = useState("");
+
 
   // Mensagem de sucesso
   const [mensagemSucesso, setMensagemSucesso] = useState(false);
+  // Mensagem de erro
+  const [mensagemErro, setMensagemErro] = useState(false);
+
+
+  
+// 🔍 Função de filtragem
+  const filtrarEmpresas = () => {
+    const resultado = empresas.filter((empresa) => {
+      const nomeValido = empresa.razao_social?.toLowerCase().includes(filtroNomeFantasia.toLowerCase());
+      const cnpjValido = empresa.cnpj?.includes(filtroCnpj);
+      return nomeValido || cnpjValido;
+    });
+    setEmpresasFiltradas(resultado);
+  };
+
+
+// Limpar filtro
+  const limparFiltro = () => {
+    setFiltroNomeFantasia("");
+    setFiltroCnpj("");
+    setEmpresasFiltradas(empresas); // Restaura tudo.
+  };
 
   useEffect(() => {
     buscarEmpresas();
@@ -24,7 +52,10 @@ function Empresa() {
   const buscarEmpresas = () => {
     fetch("http://localhost:3001/Empresa")
       .then((response) => response.json())
-      .then((data) => setEmpresas(data))
+      .then((data) => { 
+        setEmpresas(data);
+        setEmpresasFiltradas(data); // Mostra tudo no inicio
+      })
       .catch((error) => console.error("Erro ao buscar dados:", error));
   };
 
@@ -39,6 +70,23 @@ function Empresa() {
 
   const salvarDados = (e) => {
     e.preventDefault();
+/*-------------------------------------------------------------------------------------------*/
+    // Impedindo que os campos vazios sejam enviados:
+        // Usarei trim() para remover espacos em branco.
+    if (
+      cnpj.trim() === "" || 
+      telefone.trim() === "" || 
+      endereco.trim() === "" || 
+      razaoSocial.trim() === "" || 
+      email.trim() === "" || 
+      status.trim() === "") {
+      setMensagemErro(true);
+      setTimeout(() => setMensagemErro(false), 3000);
+      return;
+    }
+/*-------------------------------------------------------------------------------------------*/
+
+
 
     const novaEmpresa = {
       cnpj,
@@ -56,7 +104,10 @@ function Empresa() {
       },
       body: JSON.stringify(novaEmpresa)
     })
-      .then((res) => res.json())
+      .then((res) => {
+          if (!res.ok) throw new Error("Erro ao cadastrar empresa"); // força erro se não retornar status 2xx
+          return res.json();
+      })
       .then((data) => {
         console.log("Empresa cadastrada com ID:", data.id);
 
@@ -69,15 +120,38 @@ function Empresa() {
       .catch((error) => console.error("Erro ao cadastrar empresa:", error));
   };
 
+
   return (
     <div className="empresa-tela">
       {/* BUSCA */}
       <section className="empresa-busca">
         <h2 className="busca-empresa-title">Buscar Empresa</h2>
         <div className="filtro-campos">
-          <input type="text" placeholder="Nome Fantasia" className="label-input-busca" />
-          <input type="text" placeholder="CNPJ" />
-          <button className="bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold">Filtrar</button>
+          <input 
+            type="text" 
+            placeholder="Nome Fantasia" 
+            className="label-input-busca" 
+            value={filtroNomeFantasia}
+            onChange={(e) => setFiltroNomeFantasia(e.target.value)}
+          />
+          <input 
+            type="text" 
+            placeholder="CNPJ" 
+            className="label-input-busca" 
+            value={filtroCnpj}
+            onChange={(e) => setFiltroCnpj(e.target.value)}
+          />
+          <button 
+            onClick={filtrarEmpresas}
+            className="bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold">
+            Filtrar
+          </button>
+
+          <button 
+            onClick={limparFiltro}
+            className="bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold">
+            Limpar Filtro
+          </button>
         </div>
       </section>
 
@@ -96,7 +170,7 @@ function Empresa() {
             </tr>
           </thead>
           <tbody>
-            {empresas.map((empresa, index) => (
+            {empresasFiltradas.map((empresa, index) => (
               <tr key={index}>
                 <td>{empresa.razao_social}</td>
                 <td>{empresa.cnpj}</td>
@@ -139,6 +213,13 @@ function Empresa() {
           {mensagemSucesso && (
             <div className="mensagem-sucesso">
               🎉 Empresa cadastrada com sucesso!
+            </div>
+          )}
+
+          {/* MENSAGEM ERRO */}
+          {mensagemErro && (
+            <div className="mensagem-erro">
+              🚫 Erro ao cadastrar empresa!
             </div>
           )}
 

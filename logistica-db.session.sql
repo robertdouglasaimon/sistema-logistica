@@ -7,6 +7,7 @@ DELETE FROM Empresa WHERE id = 4;
 DELETE FROM Empresa WHERE id = 5;
 DELETE FROM Empresa WHERE id = 6;
 DELETE FROM Empresa WHERE id = 7;
+DELETE FROM Empresa WHERE id = 10;
 
 /* Tabela Empresa - Modificando */
 ALTER TABLE Empresa ADD COLUMN email VARCHAR(255);

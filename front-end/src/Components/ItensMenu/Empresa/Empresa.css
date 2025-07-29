@@ -136,6 +136,16 @@ input {
   font-weight: bold;
 }
 
+.mensagem-erro {
+  background-color: #F8D7DA;
+  color: #721C24;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
 
 button[type="submit"] {
   display: flex;
