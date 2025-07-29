@@ -1,73 +1,163 @@
-.empresa-section {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem 0;
-  height: 100%;
-}
-
-
-.empresa-box {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  width: 100%;
-  max-width: 600px;
-}
-
-.empresa-title {
-  font-size: 1.75rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #333333;
-  text-align: center;
-}
-
-.empresa-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.empresa-label {
-  display: inline-block;
-  width: 175px; /* ou 150px, depende do seu gosto */
-  font-weight: 600;
-  padding-left: 100px;
-  margin-bottom: 0.25rem;
-  margin-right: 15px;
-  color: #444444;
-}
-
-.empresa-input {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f4f4f4;
+body {
   color: #333;
-  font-size: 1rem;
 }
 
-.empresa-input:focus {
-  outline: none;
-  border-color: #007bff;
+/* Estilos relacionados a busca de empresas */
+.empresa-busca {
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.empresa-busca h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.busca-empresa-title {
+  position: relative;
+  right: 10.8rem;
+  margin-top: 2rem;
+  /* padding-bottom: 0rem; */
+}
+
+input {
+  width: 200px;        
+  height: 40px;        
+  border: 2px solid #f8ecec;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: left;
+  margin: 0px;
+}
+
+.label-input-busca {
+  position: relative;
+  left: -15px;
+  padding-right: 10px;
+}
+/*----------------------------------------------------------------------*/
+
+
+/* Estilos relacionados a lista de empresas ----------------------------*/
+.empresa-lista {
+  padding: 2rem;
   background-color: #fff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
-.empresa-button {
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: #ffffff;
-  font-weight: bold;
+.empresa-lista h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.lista-empresa-title {
+  position: relative;
+  right: 10rem;
+  margin-top: 2rem;
+  /* padding-bottom: 0rem; */
+}
+
+
+/* Tabela base */
+.empresa-lista table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
-.empresa-button:hover {
-  background-color: #0056b3;
+/* Cabeçalho da tabela */
+.empresa-lista th {
+  background-color: #eaeaea;
+  padding: 0.8rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Linhas da tabela */
+.empresa-lista td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Alternância de cor nas linhas (opcional) */
+.empresa-lista tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+/*----------------------------------------------------------------------*/
+
+/* Estilos relacionados ao cadastro da empresa ------------------------*/
+.cadastro-empresa-title {
+  position: relative;
+  right: 8.9rem;
+  margin-top: 2rem;
+  /* padding-bottom: 0rem; */
+}
+
+.empresa-cadastro h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.campos-cadastro-empresa label {
+  width: 100vh;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-basis: 150px; /* define a largura das labels */
+}
+
+.campos-cadastro-empresa input {
+  margin-left: auto; /* move o input para o centro */
+}
+
+/* Estilo para a mensagem de sucesso */
+.mensagem-sucesso {
+  background-color: #D4EDDA;
+  color: #155724;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mensagem-erro {
+  background-color: #F8D7DA;
+  color: #721C24;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+button[type="submit"] {
+  display: flex;
+  margin-top: 20px;
+  margin-left: auto;
+  align-items: center;
+  
+  position: relative;
+  right: 23rem;
+}
+
+.botao-salvar {
+  width: 200px;
+  text-align: center;
 }

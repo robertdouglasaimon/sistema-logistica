@@ -1,67 +1,232 @@
 "use client";
 import "./Empresa.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Empresa() {
+  // Estado de cada campo
   const [cnpj, setCnpj] = useState("");
   const [telefone, setTelefone] = useState("");
   const [endereco, setEndereco] = useState("");
+  const [razaoSocial, setRazaoSocial] = useState("");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
 
-  const salvarDadosEmpresa = (e) => {
-    e.preventDefault();
-    console.log("Dados enviados:", { cnpj, telefone, endereco });
+  // Filtros
+  // Lista de empresas
+  const [empresas, setEmpresas] = useState([]);
+  // Filtro de nome fantasia do item campo de buscar empresa 
+  const [empresasFiltradas, setEmpresasFiltradas] = useState([]);
+  const [filtroNomeFantasia, setFiltroNomeFantasia] = useState("");
+  const [filtroCnpj, setFiltroCnpj] = useState("");
 
-    // Aqui vai vir lógica para enviar os dados para o backend.
+
+  // Mensagem de sucesso
+  const [mensagemSucesso, setMensagemSucesso] = useState(false);
+  // Mensagem de erro
+  const [mensagemErro, setMensagemErro] = useState(false);
+
+
+  
+// 🔍 Função de filtragem
+  const filtrarEmpresas = () => {
+    const resultado = empresas.filter((empresa) => {
+      const nomeValido = empresa.razao_social?.toLowerCase().includes(filtroNomeFantasia.toLowerCase());
+      const cnpjValido = empresa.cnpj?.includes(filtroCnpj);
+      return nomeValido || cnpjValido;
+    });
+    setEmpresasFiltradas(resultado);
   };
 
+
+// Limpar filtro
+  const limparFiltro = () => {
+    setFiltroNomeFantasia("");
+    setFiltroCnpj("");
+    setEmpresasFiltradas(empresas); // Restaura tudo.
+  };
+
+  useEffect(() => {
+    buscarEmpresas();
+  }, []);
+
+  const buscarEmpresas = () => {
+    fetch("http://localhost:3001/Empresa")
+      .then((response) => response.json())
+      .then((data) => { 
+        setEmpresas(data);
+        setEmpresasFiltradas(data); // Mostra tudo no inicio
+      })
+      .catch((error) => console.error("Erro ao buscar dados:", error));
+  };
+
+  const limparCampos = () => {
+    setCnpj("");
+    setTelefone("");
+    setEndereco("");
+    setRazaoSocial("");
+    setEmail("");
+    setStatus("");
+  };
+
+  const salvarDados = (e) => {
+    e.preventDefault();
+/*-------------------------------------------------------------------------------------------*/
+    // Impedindo que os campos vazios sejam enviados:
+        // Usarei trim() para remover espacos em branco.
+    if (
+      cnpj.trim() === "" || 
+      telefone.trim() === "" || 
+      endereco.trim() === "" || 
+      razaoSocial.trim() === "" || 
+      email.trim() === "" || 
+      status.trim() === "") {
+      setMensagemErro(true);
+      setTimeout(() => setMensagemErro(false), 3000);
+      return;
+    }
+/*-------------------------------------------------------------------------------------------*/
+
+
+
+    const novaEmpresa = {
+      cnpj,
+      telefone,
+      endereco,
+      razaoSocial,
+      email,
+      status
+    };
+
+    fetch("http://localhost:3001/Empresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(novaEmpresa)
+    })
+      .then((res) => {
+          if (!res.ok) throw new Error("Erro ao cadastrar empresa"); // força erro se não retornar status 2xx
+          return res.json();
+      })
+      .then((data) => {
+        console.log("Empresa cadastrada com ID:", data.id);
+
+        // Atualiza lista, mostra mensagem e limpa campos
+        buscarEmpresas();
+        setMensagemSucesso(true);
+        limparCampos();
+        setTimeout(() => setMensagemSucesso(false), 3000);
+      })
+      .catch((error) => console.error("Erro ao cadastrar empresa:", error));
+  };
+
+
   return (
-    <section className="empresa-section">
-      <div className="empresa-box">
-        <h1 className="empresa-title">Cadastro de Empresas</h1>
-
-        <form onSubmit={salvarDadosEmpresa} className="empresa-form">
-          <div>
-            <label className="empresa-label">CNPJ</label>
-            <input
-              type="text"
-              value={cnpj}
-              onChange={(e) => setCnpj(e.target.value)}
-              className="empresa-input"
-              placeholder="Digite o CNPJ da empresa"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="empresa-label">Telefone</label>
-            <input
-              type="text"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-              className="empresa-input"
-              placeholder="(xx) xxxx-xxxx"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="empresa-label">Endereço</label>
-            <input
-              type="text"
-              value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
-              className="empresa-input"
-              placeholder="Rua, número, bairro, cidade"
-              required
-            />
-          </div>
-
-          <button type="submit" className="empresa-button">
-            Salvar Empresa
+    <div className="empresa-tela">
+      {/* BUSCA */}
+      <section className="empresa-busca">
+        <h2 className="busca-empresa-title">Buscar Empresa</h2>
+        <div className="filtro-campos">
+          <input 
+            type="text" 
+            placeholder="Nome Fantasia" 
+            className="label-input-busca" 
+            value={filtroNomeFantasia}
+            onChange={(e) => setFiltroNomeFantasia(e.target.value)}
+          />
+          <input 
+            type="text" 
+            placeholder="CNPJ" 
+            className="label-input-busca" 
+            value={filtroCnpj}
+            onChange={(e) => setFiltroCnpj(e.target.value)}
+          />
+          <button 
+            onClick={filtrarEmpresas}
+            className="bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold">
+            Filtrar
           </button>
+
+          <button 
+            onClick={limparFiltro}
+            className="bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold">
+            Limpar Filtro
+          </button>
+        </div>
+      </section>
+
+      {/* LISTA */}
+      <section className="empresa-lista">
+        <h2 className="lista-empresa-title">Lista de Empresas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Razão Social</th>
+              <th>CNPJ</th>
+              <th>Telefone</th>
+              <th>Endereço</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {empresasFiltradas.map((empresa, index) => (
+              <tr key={index}>
+                <td>{empresa.razao_social}</td>
+                <td>{empresa.cnpj}</td>
+                <td>{empresa.telefone}</td>
+                <td>{empresa.endereco}</td>
+                <td>{empresa.email}</td>
+                <td>{empresa.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      {/* CADASTRO */}
+      <section className="empresa-cadastro">
+        <h2 className="cadastro-empresa-title">Cadastro de Empresa</h2>
+        <form onSubmit={salvarDados}>
+          <div className="campos-cadastro-empresa">
+            <label><b>Razão Social:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite a Razão Social" value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)} />
+            </label>
+            <label><b>CNPJ:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} />
+            </label>
+            <label><b>Telefone:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+            </label>
+            <label><b>Endereço:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Endereço" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
+            </label>
+            <label><b>Email:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </label>
+            <label><b>Status:</b>
+              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Status" value={status} onChange={(e) => setStatus(e.target.value)} />
+            </label>
+          </div>
+
+          {/* MENSAGEM SUCESSO */}
+          {mensagemSucesso && (
+            <div className="mensagem-sucesso">
+              🎉 Empresa cadastrada com sucesso!
+            </div>
+          )}
+
+          {/* MENSAGEM ERRO */}
+          {mensagemErro && (
+            <div className="mensagem-erro">
+              🚫 Erro ao cadastrar empresa!
+            </div>
+          )}
+
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition font-semibold pl-18 botao-salvar">Salvar</button>
         </form>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 
