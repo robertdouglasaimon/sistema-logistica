@@ -18,7 +18,7 @@ body {
 
 .busca-empresa-title {
   position: relative;
-  right: 10.8rem;
+  right: 25rem;
   margin-top: 2rem;
   /* padding-bottom: 0rem; */
 }
@@ -58,7 +58,7 @@ input {
 
 .lista-empresa-title {
   position: relative;
-  right: 10rem;
+  right: 24rem;
   margin-top: 2rem;
   /* padding-bottom: 0rem; */
 }
@@ -100,7 +100,6 @@ input {
 /* Estilos relacionados ao cadastro da empresa ------------------------*/
 .cadastro-empresa-title {
   position: relative;
-  right: 8.9rem;
   margin-top: 2rem;
   /* padding-bottom: 0rem; */
 }
