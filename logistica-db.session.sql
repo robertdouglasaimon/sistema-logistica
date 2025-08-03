@@ -6,7 +6,7 @@ UPDATE Usuario_Sistema SET permissao = 'Nível 3' WHERE id_usuario = 3;
 DELETE FROM Empresa WHERE id = 4;
 DELETE FROM Empresa WHERE id = 5;
 DELETE FROM Empresa WHERE id = 6;
-DELETE FROM Empresa WHERE id = 7;
+DELETE FROM Empresa WHERE id = 12;
 DELETE FROM Empresa WHERE id = 10;
 
 /* Tabela Empresa - Modificando */

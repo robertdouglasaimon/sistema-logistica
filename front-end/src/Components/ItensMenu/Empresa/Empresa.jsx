@@ -23,8 +23,8 @@ function Empresa() {
   // Mensagem de sucesso
   const [mensagemSucesso, setMensagemSucesso] = useState(false);
   // Mensagem de erro
-  const [mensagemErro, setMensagemErro] = useState(false);
-
+  const [mensagemErro, setMensagemErro] = useState(false); 
+  const [mensagemErroTexto, setMensagemErroTexto] = useState(""); // 🆕 Novo estado para texto do erro
 
   
 // 🔍 Função de filtragem
@@ -49,6 +49,7 @@ function Empresa() {
     buscarEmpresas();
   }, []);
 
+// Buscar empresas dentro do banco de dados:
   const buscarEmpresas = () => {
     fetch("http://localhost:3001/Empresa")
       .then((response) => response.json())
@@ -59,6 +60,7 @@ function Empresa() {
       .catch((error) => console.error("Erro ao buscar dados:", error));
   };
 
+// Limpar campos
   const limparCampos = () => {
     setCnpj("");
     setTelefone("");
@@ -70,23 +72,15 @@ function Empresa() {
 
   const salvarDados = (e) => {
     e.preventDefault();
-/*-------------------------------------------------------------------------------------------*/
-    // Impedindo que os campos vazios sejam enviados:
-        // Usarei trim() para remover espacos em branco.
-    if (
-      cnpj.trim() === "" || 
-      telefone.trim() === "" || 
-      endereco.trim() === "" || 
-      razaoSocial.trim() === "" || 
-      email.trim() === "" || 
-      status.trim() === "") {
-      setMensagemErro(true);
-      setTimeout(() => setMensagemErro(false), 3000);
-      return;
-    }
-/*-------------------------------------------------------------------------------------------*/
 
+  // Validando dados antes de enviar pelo salvarDados(Lembrando que esses dados vem da função validandoDados):
+    if(!validandoDados()) {
+      setMensagemErro(true); // Mostra mensagem de erro se os dados forem inválidos.
+      setTimeout(() => setMensagemErro(false), 3000); // Limpa a mensagem de erro depois de 3 segundos.
+      return
+    } 
 
+/*-------------------------------------------------------------------------------------------*/
 
     const novaEmpresa = {
       cnpj,
@@ -118,7 +112,57 @@ function Empresa() {
         setTimeout(() => setMensagemSucesso(false), 3000);
       })
       .catch((error) => console.error("Erro ao cadastrar empresa:", error));
+            setMensagemErroTexto("Erro ao cadastrar empresa no servidor.");
+            setMensagemErro(true);
+            setTimeout(() => setMensagemErro(false), 3000);
   };
+
+const validandoDados = () => {
+  /*-------------------------------------------------------------------------------------------*/
+  /* Validação dos campos da sessão "Cadastro de Empresa" */ 
+
+  // Impedindo que os campos vazios sejam enviados:
+      // Usarei trim() para remover espacos em branco.
+  if (
+    cnpj.trim() === "" || 
+    telefone.trim() === "" || 
+    endereco.trim() === "" || 
+    razaoSocial.trim() === "" || 
+    email.trim() === "" || 
+    status.trim() === "") {
+    setMensagemErroTexto("Preencha todos os campos obrigatórios.");
+    return false;
+  }
+
+  // Validando CNPJ:
+  const cnpjLimpo = cnpj.replace(/[^\d]/g, ""); // Remove tudo que não for numero.
+  if (cnpjLimpo.length !== 14) { // Verifica se o CNPJ possui 14 digitos.
+    setMensagemErroTexto("CNPJ inválido: deve conter 14 dígitos.");
+    return false;
+  }
+
+  // Validando telefone:
+  const telefoneLimpo = telefone.replace(/[^\d]/g, ""); // Remove tudo que não for numero.
+  if (telefoneLimpo.length < 10) { // Verifica se o telefone possui 10 digitos.
+    setMensagemErroTexto("Telefone inválido: deve conter pelo menos 10 dígitos.");
+    return false;
+  }
+
+  // Validando email:
+  if (!email.includes("@") || !email.includes(".")) {
+    setMensagemErroTexto("Email inválido: deve conter '@' e '.'");
+    return false;
+  } 
+
+  // Validando status:
+  const statusValido = ["Ativo", "Inativo"];
+  if (!statusValido.includes(status)) {
+    setMensagemErroTexto("Status inválido: deve ser 'Ativo' ou 'Inativo'.");
+    return false;
+  }
+
+  return true; // Tudo certo!
+}
 
 
   return (
@@ -219,7 +263,7 @@ function Empresa() {
           {/* MENSAGEM ERRO */}
           {mensagemErro && (
             <div className="mensagem-erro">
-              🚫 Erro ao cadastrar empresa!
+              🚫 {mensagemErroTexto}
             </div>
           )}
 
