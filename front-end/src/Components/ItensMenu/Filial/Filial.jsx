@@ -1,66 +1,56 @@
 "use client";
 import './Filial.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Filial() {
-  const [nome, setNome] = useState("");
-  const [tipo, setTipo] = useState("");
-  const [endereco, setEndereco] = useState("");
+    const [filiaisAtivas, setFiliaisAtivas] = useState(0); // Adicione aqui o estado para filiais ativas
+    const [filiaisInativas, setFiliaisInativas] = useState(0); // Adicione aqui o estado para filiais inativas
+    const [totalFiliais, setTotalFiliais] = useState(0); // Adicione aqui o estado para o total de filiais
 
-  const salvarDadosFilial = (e) => {
-    e.preventDefault();
-    console.log("Dados enviados:", { nome, tipo, endereco });
+    // Aqui vamos usar o useEffect para atualizar os estados quando as filiais forem alteradas
+    useEffect(() => {
+        const dadosSimulados = {
+            ativas: 8,
+            inativas: 2,
+            total: 10
+        };
 
-    // Aqui vai vir lógica para enviar os dados para o backend.
-  };
+        setFiliaisAtivas(dadosSimulados.ativas);
+        setFiliaisInativas(dadosSimulados.inativas);
+        setTotalFiliais(dadosSimulados.total);
+        }, []);
+   
+
 
     return(
     <section className='filial-section'>
         <div className="filial-box">
             <h1 className='filial-title'>Cadastro de Filiais</h1>
 
-            <form action="" onSubmit={salvarDadosFilial} className="filial-form">
-                <div>
-                    <label className='filial-label'>Nome</label>
-                    <input 
-                        type="text" 
-                        value={nome} 
-                        onChange={(e) => setNome(e.target.value)} 
-                        className="filial-input" 
-                        placeholder="Digite o nome da filial" 
-                        required 
-                    />
+            {/* Indicadores de filiais ativas, inativas e total de filiais */}
+            <div className="filial-indicadores">
+                <div className="indicador-card ativo">
+                    <span className="indicador-titulo">Filiais Ativas</span>
+                    <span className="indicador-valor">{filiaisAtivas}</span>
                 </div>
 
-                <div>
-                    <label className='filial-label'>Tipo</label>
-                    <input 
-                        type="text" 
-                        value={tipo} 
-                        onChange={(e) => setTipo(e.target.value)} 
-                        className="filial-input" 
-                        placeholder="Digite o tipo da filial" 
-                        required 
-                    />
+                <div className="indicador-card inativo">
+                    <span className="indicador-titulo">Filiais Inativas</span>
+                    <span className="indicador-valor">{filiaisInativas}</span>
                 </div>
 
-                <div>
-                    <label className='filial-label'>Endereço</label>
-                    <input 
-                        type="text" 
-                        value={endereco} 
-                        onChange={(e) => setEndereco(e.target.value)} 
-                        className="filial-input" 
-                        placeholder="Digite o endereço da filial" 
-                        required 
-                    />
+                <div className="indicador-card total">
+                    <span className="indicador-titulo">Total de Filiais</span>
+                    <span className="indicador-valor">{totalFiliais}</span>
                 </div>
+            </div>
 
-                <button type="submit" className="filial-button">Salvar Filial</button>
-            </form>
+
+            {/* Adicione aqui o formulário de cadastro de filiais */}
         </div>
     </section>
     );
-}
+    
+ };
 
 export default Filial;
