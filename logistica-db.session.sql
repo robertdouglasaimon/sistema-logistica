@@ -51,6 +51,7 @@ SELECT * FROM Filial;
 
 ALTER TABLE Filial ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT 'Ativa';
 ALTER TABLE Filial ADD COLUMN created_at DATETIME;
+ALTER TABLE Filial ADD COLUMN endereco VARCHAR(255);
 
 
 /* Tabela Filial - Modificando e adicionando dados */
@@ -72,6 +73,20 @@ SET
   created_at = '2025-05-04 08:38:00'
 WHERE id_filial = 3;
 
+UPDATE Filial
+SET
+  endereco = 'Rua Principal, 123'
+WHERE id_filial = 1;
+
+UPDATE Filial
+SET
+  endereco = 'Avenida Central, 456'
+WHERE id_filial = 2;
+
+UPDATE Filial
+SET
+  endereco = 'Praça da Liberdade, 789'
+WHERE id_filial = 3;
 
 /*--------------------------------------------------*/
 
