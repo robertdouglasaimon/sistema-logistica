@@ -5,8 +5,8 @@ function Topbar() {
 
   // Array/Objeto com as informações do usuário
   const usuario = {
-    nome: 'João Silva',
-    cargo: 'Administrador',
+    nome: 'Robert Douglas',
+    cargo: 'Desenvolvedor Web Full-Stack Junior',
     permissao: 'Nível 3',
   };
 
