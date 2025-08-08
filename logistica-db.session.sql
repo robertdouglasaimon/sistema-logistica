@@ -37,6 +37,8 @@ INSERT INTO Empresa (cnpj, telefone, endereco, email, status, razao_social) VALU
 
 UPDATE Empresa SET razao_social = 'Loja Exemplo A' WHERE id = 1;
 
+UPDATE Empresa SET id = 1 WHERE id = 1;
+
 /*--------------------------------------------------*/
 
 /* Tabela Filial - Modificando */
@@ -56,6 +58,10 @@ ALTER TABLE Filial
 ADD CONSTRAINT fk_nome_empresa 
 FOREIGN KEY (nome_empresa) REFERENCES Empresa(razao_social);
 
+ALTER TABLE Filial DROP COLUMN created_at;
+
+DROP VIEW vw_FilialEmpresa;
+
 
 
 /* Tabela Filial - Criando */
@@ -73,10 +79,10 @@ CREATE TABLE Filial (
 );
 
 /* Tabela Filial - Inserindo dados */
-INSERT INTO Filial (id_empresa, nome, tipo, status, created_at, endereco, nome_empresa) VALUES
-(1, 'Filial Zona Leste', 'Centro de Distribuição', 'Ativa', '2024-06-10 08:00:00', 'Rua A, 123 - São Paulo', 'LogTrans Brasil S.A.'),
-(2, 'Filial Barra da Tijuca', 'HUB Regional', 'Ativa', '2024-06-11 09:00:00', 'Rua B, 456 - Rio de Janeiro', 'Cargas Express Ltda.'),
-(3, 'Filial CIC', 'Armazenagem', 'Ativa', '2024-06-12 10:00:00', 'Rua C, 789 - Curitiba', 'MultiLogística ME');
+INSERT INTO Filial (id_empresa, nome, tipo, status, endereco, nome_empresa) VALUES
+(1, 'Filial Zona Leste', 'Centro de Distribuição', 'Ativa', 'Rua A, 123 - São Paulo', 'LogTrans Brasil S.A.'),
+(2, 'Filial Barra da Tijuca', 'HUB Regional', 'Ativa', 'Rua B, 456 - Rio de Janeiro', 'Cargas Express Ltda.'),
+(3, 'Filial CIC', 'Armazenagem', 'Ativa', 'Rua C, 789 - Curitiba', 'MultiLogística ME');
 
 /* Tabela Filial - JOIN para testes de integridade */
 SELECT 
@@ -105,6 +111,12 @@ SELECT
 FROM Filial f
 JOIN Empresa e ON f.id_empresa = e.id;
 
+UPDATE Filial 
+SET id_empresa = 1
+WHERE id_empresa = NULL;
+
+DELETE FROM Filial WHERE id_filial = 5;
+DELETE FROM Filial WHERE id_filial = 6;
 
 /*--------------------------------------------------*/
 

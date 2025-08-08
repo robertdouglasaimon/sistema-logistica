@@ -101,7 +101,8 @@ input {
 .cadastro-empresa-title {
   position: relative;
   margin-top: 2rem;
-  /* padding-bottom: 0rem; */
+  
+  /* margin-right: 45rem; */
 }
 
 .empresa-cadastro h2 {
@@ -112,7 +113,7 @@ input {
 }
 
 .campos-cadastro-empresa label {
-  width: 100vh;
+  width: 50vh;
   height: 50px;
   display: flex;
   align-items: center;
