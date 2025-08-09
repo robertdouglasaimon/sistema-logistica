@@ -59,6 +59,8 @@ ADD CONSTRAINT fk_nome_empresa
 FOREIGN KEY (nome_empresa) REFERENCES Empresa(razao_social);
 
 ALTER TABLE Filial DROP COLUMN created_at;
+ALTER TABLE Filial DROP COLUMN nome;
+ALTER TABLE Filial ADD COLUMN nome VARCHAR(255);
 
 DROP VIEW vw_FilialEmpresa;
 
@@ -117,6 +119,11 @@ WHERE id_empresa = NULL;
 
 DELETE FROM Filial WHERE id_filial = 5;
 DELETE FROM Filial WHERE id_filial = 6;
+
+DELETE FROM Filial WHERE id_filial = 1;
+DELETE FROM Filial WHERE id_filial = 2;
+DELETE FROM Filial WHERE id_filial = 7;
+DELETE FROM Filial WHERE id_filial = 8;
 
 /*--------------------------------------------------*/
 
