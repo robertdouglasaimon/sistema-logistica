@@ -3,73 +3,22 @@ import './Funcionario.css';
 import { use, useState } from "react";
 
 function Funcionario() {
-    const [nome, setNome] = useState("");
-    const [cpf, setCPF] = useState("");
-    const [data_admissao, setDataAdmissao] = useState("");
-    const [salario, setSalario] = useState("");
+// Estados relacionados aos campos e botão de cadastro de funcionários
+
 
     return (
-        <section className='funcionario-section'>
-            <div className="funcionario-box">
-                <h1 className='funcionario-title'>Cadastro de Funcionarios</h1>
+        <section className='dashboard-funcionario-section'>
+            <div className="funcionario-title">
+                <h1><strong>Funcionários</strong></h1>
+             </div>
 
-                <form className='funcionario-form'>
-                    <div>
-                        <label className='funcionario-label'>Nome</label>
-                        <input 
-                            type="text" 
-                            value={nome} 
-                            onChange={(e) => setNome(e.target.value)} 
-                            className="funcionario-input" 
-                            placeholder="Digite o nome do funcionario" 
-                            required 
-                        />
-
-                    </div>
-
-                    <div>
-                        <label className='funcionario-label'>CPF</label>
-                        <input 
-                            type="text" 
-                            value={cpf} 
-                            onChange={(e) => setCPF(e.target.value)} 
-                            className="funcionario-input" 
-                            placeholder="Digite o CPF do funcionario" 
-                            required 
-                        />
-
-                    </div>
-
-                    <div>
-                        <label className='funcionario-label'>Data de Admissão</label>
-                        <input 
-                            type="date" 
-                            value={data_admissao} 
-                            onChange={(e) => setDataAdmissao(e.target.value)} 
-                            className="funcionario-input" 
-                            placeholder="Digite a data de admissão do funcionario" 
-                            required 
-                        />
-
-                    </div>
-
-                    <div>
-                        <label className='funcionario-label'>Salario</label>
-                        <input 
-                            type="number" 
-                            value={salario} 
-                            onChange={(e) => setSalario(e.target.value)} 
-                            className="funcionario-input" 
-                            placeholder="Digite o salario do funcionario" 
-                            required 
-                        />
-
-                    </div>
-
-                    <button className='funcionario-button'>Cadastrar Funcionário</button>
-                </form>
+            <div className="dashboard-funcionario-box">
+                
             </div>
         </section>
+
+
+
     );
 }
 

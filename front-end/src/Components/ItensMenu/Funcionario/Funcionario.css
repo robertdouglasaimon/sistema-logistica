@@ -1,4 +1,4 @@
- .funcionario-section {
+ .dashboard-funcionario-section {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -7,66 +7,11 @@
   height: 100%;
 }
 
-.funcionario-box {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  width: 100%;
-  max-width: 600px;
-}
+.funcionario-title h1 {
 
-.funcionario-title {
-  font-size: 1.75rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #333333;
-  text-align: center;
-}
+  margin: 10rem 50rem 0 0;
 
-.funcionario-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+  color: black;
+  font-size: 2rem;
 
-.funcionario-label {
-  display: inline-block;
-  width: 175px; /* ou 150px, depende do seu gosto */
-  font-weight: 600;
-  padding-left: 100px;
-  margin-bottom: 0.25rem;
-  margin-right: 15px;
-  color: #444444;
-}
-
-.funcionario-input {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f4f4f4;
-  color: #333;
-  font-size: 1rem;
-}
-
-.funcionario-input:focus {
-  outline: none;
-  border-color: #007bff;
-  background-color: #fff;
-}
-
-.funcionario-button {
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.funcionario-button:hover {
-  background-color: #0056b3;
 }
