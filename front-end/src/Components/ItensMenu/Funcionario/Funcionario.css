@@ -1,4 +1,4 @@
- .dashboard-funcionario-section {
+ .funcionarios-indicadores {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -7,11 +7,48 @@
   height: 100%;
 }
 
-.funcionario-title h1 {
-
-  margin: 10rem 50rem 0 0;
-
+.funcionario-title {
+  margin: 15rem 0 0 0;
   color: black;
-  font-size: 2rem;
+  font-size: 1.9rem;
 
+}
+
+/* ESTILO DOS MOSTRADORES ------------------------------------------------ */
+
+.funcionarios-indicadores {
+    display: flex;
+    gap: 10px;
+    margin: -15.7rem -1rem 0rem -0.5rem;  
+}
+
+.indicador-funcionario {
+  flex: 1;
+  padding: 20px 190px 4px 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.indicador-funcionario-titulo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.indicador-funcionario-valor {
+    font-size: 40px;
+    margin-top: 10px;
+    display: block;
+}
+
+.indicador-funcionario.ativo {
+    background-color: #31be70; /* verde */
+}
+
+.indicador-funcionario.inativo {
+    background-color: #c9342a; /* vermelho */
+}
+
+.indicador-funcionario.total {
+    background-color: #5077a1; /* azul */
 }
