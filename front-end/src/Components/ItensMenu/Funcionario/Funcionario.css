@@ -1,4 +1,4 @@
- .funcionario-section {
+ .funcionarios-indicadores {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -7,66 +7,48 @@
   height: 100%;
 }
 
-.funcionario-box {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  width: 100%;
-  max-width: 600px;
-}
-
 .funcionario-title {
-  font-size: 1.75rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #333333;
-  text-align: center;
+  margin: 15rem 0 0 0;
+  color: black;
+  font-size: 1.9rem;
+
 }
 
-.funcionario-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+/* ESTILO DOS MOSTRADORES ------------------------------------------------ */
+
+.funcionarios-indicadores {
+    display: flex;
+    gap: 10px;
+    margin: -15.7rem -1rem 0rem -0.5rem;  
 }
 
-.funcionario-label {
-  display: inline-block;
-  width: 175px; /* ou 150px, depende do seu gosto */
-  font-weight: 600;
-  padding-left: 100px;
-  margin-bottom: 0.25rem;
-  margin-right: 15px;
-  color: #444444;
+.indicador-funcionario {
+  flex: 1;
+  padding: 20px 190px 4px 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.funcionario-input {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f4f4f4;
-  color: #333;
-  font-size: 1rem;
+.indicador-funcionario-titulo {
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.funcionario-input:focus {
-  outline: none;
-  border-color: #007bff;
-  background-color: #fff;
+.indicador-funcionario-valor {
+    font-size: 40px;
+    margin-top: 10px;
+    display: block;
 }
 
-.funcionario-button {
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.indicador-funcionario.ativo {
+    background-color: #31be70; /* verde */
 }
 
-.funcionario-button:hover {
-  background-color: #0056b3;
+.indicador-funcionario.inativo {
+    background-color: #c9342a; /* vermelho */
+}
+
+.indicador-funcionario.total {
+    background-color: #5077a1; /* azul */
 }

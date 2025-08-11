@@ -139,8 +139,24 @@ app.put('/Filial/:id_filial', (req, res) => {
       });
     }
 
+
+
   });
 });
+
+
+// Criando uma rota para buscar Funcionario
+app.get('/Funcionario', (req, res) => {
+  db.all('SELECT * FROM Funcionario', [], (err, rows) => {
+    if (err) {
+      console.error('Erro na consulta:', err);
+      res.status(500).send('Erro ao buscar Funcionario');
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 
 // Inicia o servidor
 app.listen(3001, () => {
