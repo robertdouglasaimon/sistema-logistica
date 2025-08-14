@@ -157,6 +157,47 @@ app.get('/Funcionario', (req, res) => {
   });
 });
 
+// Criando metodo para EDITAR Funcionario
+app.put('/Funcionario/:id_funcionario', (req, res) => {
+  const id_funcionario = req.params.id_funcionario;
+  const { nome, cpf, status, cargo, salario, id_filial, admissao, demissao } = req.body;
+
+  const sql = `
+    UPDATE Funcionario 
+    SET nome = ?, cpf = ?, status = ?, cargo = ?, salario = ?, id_filial = ?, admissao = ?, demissao = ?
+    WHERE id_funcionario = ?
+  `;
+
+  db.run(sql, [nome, cpf, status, cargo, salario, id_filial, admissao, demissao, id_funcionario], function(err) {
+    if (err) {
+      console.error("Erro ao editar funcionário:", err);
+      res.status(500).send("Erro no servidor");
+    } else {
+      res.status(200).send("Funcionário editado com sucesso");
+    }
+  });
+});
+
+
+
+
+// Criando metodo para DELETAR Funcionario
+app.delete('/Funcionario/:id_funcionario', (req, res) => {
+  const id_funcionario = req.params.id_funcionario;
+  const sql = "DELETE FROM Funcionario WHERE id_funcionario = ?";
+
+  db.run(sql, [id_funcionario], function(err) {
+    if (err) {
+      console.error("Erro ao excluir funcionario:", err);
+      res.status(500).send("Erro no servidor");
+    } else {
+      res.status(200).send("Funcionario excluído com sucesso");
+    }
+  });
+});
+
+
+
 
 // Inicia o servidor
 app.listen(3001, () => {
