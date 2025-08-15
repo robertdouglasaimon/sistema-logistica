@@ -1,0 +1,7 @@
+version: '2'
+agent:
+  authtoken: 31Knlg5W3wgjaOJwQNSLImgyQxA_38LTuKRfuh6rC4FfEgMtX
+tunnel:
+  next:
+    addr: 3000
+    protocol: http
