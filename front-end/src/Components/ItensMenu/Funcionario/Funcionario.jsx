@@ -9,8 +9,12 @@ function Funcionario() {
     const [funcionarioInativo, setFuncionarioInativo] = useState(0);
     const [totalFuncionarios, setTotalFuncionarios] = useState(0);
 
-// Estados relacionados ao filtro de funcionarios
-    const [filtroStatus, setFiltroStatus] = useState("");
+//  Estados para filtrar os funcionários
+    const [filtroNomeFuncionario, setFiltroNomeFuncionario] = useState("");
+    const [filtroCpfFuncionario, setFiltroCpfFuncionario] = useState("");
+
+    /* Estado relacionado a limpeza do filtro */
+    const [limparFiltroFuncionario, setLimparFiltroFuncionario] = useState(false);
 
 // Estados relacionados a edição de funcionários
    const [mostrarModalEdicao, setMostrarModalEdicao] = useState(false);
@@ -41,8 +45,31 @@ function Funcionario() {
     }
 
 
+    const filtrarFuncionarios = () => {
+        const funcionariosFiltrados = mostradorFuncionarios.filter((funcionario) => {
+            return (
+                funcionario.nome.toLowerCase().includes(filtroNomeFuncionario.toLowerCase()) &&
+                funcionario.cpf.toLowerCase().includes(filtroCpfFuncionario.toLowerCase())
+            );
+        })
+        setMostradorFuncionarios(funcionariosFiltrados);
+    };
+
+    const limparPesquisaFiltroFuncionarios = () => {
+        setFiltroNomeFuncionario(""); // Limpa o filtro
+        setFiltroCpfFuncionario("");
+        setLimparFiltroFuncionario(true);
+
+        mostrarFuncionarios(); // 🔁 Recarrega os dados do banco
+
+        setTimeout(() => setLimparFiltroFuncionario(false), 100); // Limpa o filtro
+    };
+
+
     useEffect(() => {
         mostrarFuncionarios();
+        filtrarFuncionarios();
+        limparPesquisaFiltroFuncionarios();
     }, []);
 
 /* 📝 Função para editar funcionários */
@@ -130,16 +157,20 @@ function Funcionario() {
                         <input 
                             type="text" 
                             placeholder="Digite o nome..." 
+                            value={filtroNomeFuncionario}
+                            onChange={(e) => setFiltroNomeFuncionario(e.target.value)}
                         />
 
                         <input 
                             type="text" 
-                            placeholder="Digite o CPF..." 
+                            placeholder="Digite o CPF..."
+                            value={filtroCpfFuncionario}
+                            onChange={(e) => setFiltroCpfFuncionario(e.target.value)} 
                         />
 
-                        <button className='filial-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center'>Filtrar</button>
+                        <button className='filial-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center' onClick={filtrarFuncionarios}>Filtrar</button>
 
-                        <button className='filial-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center'>Limpar Filtro</button>
+                        <button className='filial-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center' onClick={limparPesquisaFiltroFuncionarios}>Limpar Filtro</button>
                     </div>
                 </section>
 
