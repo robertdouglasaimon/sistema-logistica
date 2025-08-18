@@ -1,7 +1,7 @@
 Comando para abrir a porta ONLINE para mostrar o projeto com NGROK.
 Depois que fizer a instalação do NGROK via npm install ngrok e...
-Depois de ter baixado o ngrok da internet e ter logado com o token, criar um arquivo chamado
-"ngrok.yml" e colocar os seguintes paramentros:
+Depois de ter baixado o ngrok da internet e ter logado com o token, crie um arquivo dentro da RAIZ do projeto chamado
+"ngrok.yml" e coloque os seguintes paramentros:
 
 version: '2'
 agent:
@@ -10,6 +10,10 @@ tunnel:
   next: (Aqui coloca a tecnologia que você ta usando, no meu caso como usei Next.. Foi Next!)
     addr: 3000  (Aporta do localhost que vai ficar online)
     protocol: http  (E o tipo de protocolo que vai executar)
+
+
+Criado o arquivo, acesse a pasta onde está o NGROK no PC. No meu caso está aqui:
+" C:\Program Files\NGROK " , pelo terminal você faria: cd "C:\Program Files\NGROK"
 
 E por fim, no terminal do vscode ou do power shell, chamamos o comando abaixo junto da porta do projeto para gerar o link do servidor temporario com o link online do local host:
 

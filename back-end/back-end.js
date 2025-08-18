@@ -157,10 +157,31 @@ app.get('/Funcionario', (req, res) => {
   });
 });
 
+
+// Criando metodo para CADASTRAR Funcionario
+app.post('/Funcionario', (req, res) => {
+  const { nome, cpf, status, cargo, salario, id_filial, admissao, demissao } = req.body;
+  const sql = `INSERT INTO Funcionario (nome, cpf, status, cargo, salario, id_filial, admissao, demissao)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  db.run(sql, [nome, cpf, status, cargo, salario, id_filial, admissao, demissao], function(err) {
+    if (err) {
+      console.error('Erro ao inserir funcionario:', err);
+      res.status(500).json({ erro: 'Erro ao cadastrar funcionario' });
+    } else {
+      res.status(201).json({ id: this.lastID });
+    }
+  });
+});
+
+
+
 // Criando metodo para EDITAR Funcionario
 app.put('/Funcionario/:id_funcionario', (req, res) => {
   const id_funcionario = req.params.id_funcionario;
   const { nome, cpf, status, cargo, salario, id_filial, admissao, demissao } = req.body;
+  console.log("Recebido no POST /Funcionario:", req.body);
+
 
   const sql = `
     UPDATE Funcionario 
