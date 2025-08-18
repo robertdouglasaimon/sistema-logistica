@@ -160,3 +160,20 @@
 .modal-botoes button:last-child {
     background-color: #ccc;
 }
+
+/*------------------------------------------------------------------------------------------*/
+
+/* Cadastro de Funcionario -----------------------------------------------------------------------*/
+.funcionario-cadastro-title {
+  position: relative;
+  right: 27.1rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  color: #000;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.funcionario-label {
+    padding: 9.6 90 10 0;
+}

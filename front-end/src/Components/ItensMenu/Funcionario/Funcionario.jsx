@@ -20,6 +20,20 @@ function Funcionario() {
    const [mostrarModalEdicao, setMostrarModalEdicao] = useState(false);
    const [funcionarioEditando, setFuncionarioEditando] = useState({});
 
+// Estados relacionados ao cadastro de funcionários
+   const [nomeFuncionario, setNomeFuncionario] = useState("");
+   const [cpfFuncionario, setCpfFuncionario] = useState("");
+   const [telefoneFuncionario, setTelefoneFuncionario] = useState("");
+   const [cargoFuncionario, setCargoFuncionario] = useState("");
+   const [salarioFuncionario, setSalarioFuncionario] = useState("");
+   const [statusFuncionario, setStatusFuncionario] = useState("");
+   const [admissaoFuncionario, setAdmissaoFuncionario] = useState("");
+   const [demissaoFuncionario, setDemissaoFuncionario] = useState("");
+
+   const [listaFiliais, setListaFiliais] = useState([]); // array de filiais
+   const [filialSelecionada, setFilialSelecionada] = useState(""); // id selecionado
+   
+
 
 
 
@@ -65,10 +79,89 @@ function Funcionario() {
         setTimeout(() => setLimparFiltroFuncionario(false), 100); // Limpa o filtro
     };
 
+    const cadastrarFuncionario = async () => {
+        // Validando os dados do funcionário
+        const statusFuncionarioValido = ["Ativo", "Inativo"];
+
+        // Verifique se o status do funcionário é valido
+        if (!statusFuncionarioValido.includes(statusFuncionario.trim())) {
+            alert("Status inválido. Deve ser 'Ativo' ou 'Inativo'.");
+            return;
+        }
+
+        // Verifique se uma filial foi selecionada
+        if (!filialSelecionada) {
+        alert("Selecione uma filial antes de cadastrar.");
+        return;
+        }
+
+        // Verifique se o salário é um número válido
+        if (isNaN(parseFloat(salarioFuncionario))) {
+        alert("Salário inválido.");
+        return;
+        }
+
+
+
+        const novoFuncionario = {
+            nome: nomeFuncionario, // Trim para remover espacos em branco
+            cpf: cpfFuncionario.trim(),
+            status: statusFuncionario.trim(),  
+            cargo: cargoFuncionario.trim(), 
+            salario: parseFloat(salarioFuncionario),         
+            id_filial: parseInt(filialSelecionada), 
+            admissao: admissaoFuncionario.trim(),
+            demissao: demissaoFuncionario.trim(),      
+        };
+        try {
+            const resposta = await fetch("http://localhost:3001/Funcionario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(novoFuncionario)
+            });
+
+            if(resposta) {
+                alert("Funcionario cadastrado com sucesso!");
+                setNomeFuncionario("");
+                setCpfFuncionario("");
+                setStatusFuncionario("Ativo");
+                setCargoFuncionario("");
+                setSalarioFuncionario("");
+                setFilialSelecionada("");
+                setAdmissaoFuncionario("");
+                setDemissaoFuncionario("");
+
+                mostrarFuncionarios(); // Atualiza lista
+            } else {
+                alert("Erro ao cadastrar funcionário.");
+            }
+        } catch (error) {
+            console.error("Erro ao cadastrar funcionario:", error);
+            alert("Erro na requisição.");
+        }
+
+
+    }
+
+    const idFilial = async () => {
+        try {
+            const resposta = await fetch("http://localhost:3001/Filial");
+            const data_filial = await resposta.json();
+
+            setListaFiliais(data_filial); // salva o array completo
+        } catch (error) {
+            console.error("Erro ao buscar dados:", error);
+        }
+    };
+
+
+
 
     useEffect(() => {
         mostrarFuncionarios();
-        filtrarFuncionarios();
+        idFilial();
         limparPesquisaFiltroFuncionarios();
     }, []);
 
@@ -151,7 +244,7 @@ function Funcionario() {
                     </div>
                 </section>
 
-                {/* 📊 Busca de funcionários */}
+                {/* 🔍 Busca de funcionários */}
                 <section>
                     <div className="busca-funcionario">
                         <input 
@@ -174,7 +267,90 @@ function Funcionario() {
                     </div>
                 </section>
 
-                {/* 📊 Tabela de funcionários */}
+                {/* 👤 Castro de Funcionario */}
+                <section>
+                    <h2 className='funcionario-cadastro-title'>Cadastrar Funcionario</h2>
+                    <div className='funcionario-cadastro'>
+                        <input 
+                            type="text" 
+                            placeholder="Digite o nome.." 
+                            value={nomeFuncionario}
+                            onChange={(e) => setNomeFuncionario(e.target.value)}
+
+                        />
+
+                        <input 
+                            type="text" 
+                            placeholder='Digite o CPF' 
+                            value={cpfFuncionario}
+                            onChange={(e) => setCpfFuncionario(e.target.value)}
+
+                        />
+
+                        {/* Select para escolher o Status do Funcionario */}
+                        <select className='funcionario-label' 
+                            value={statusFuncionario}
+                            onChange={(e) => setStatusFuncionario(e.target.value)}
+                        >
+                            <option value="Ativo">Ativo</option>
+                            <option value="Inativo">Inativo</option>
+                        </select>
+                        
+                        <input 
+                            type="text" 
+                            placeholder='Digite o Cargo' 
+                            value={cargoFuncionario}
+                            onChange={(e) => setCargoFuncionario(e.target.value)}
+
+                        />
+
+                        <input 
+                            type="text" 
+                            placeholder='Digite o Salário' 
+                            value={salarioFuncionario}
+                            onChange={(e) => setSalarioFuncionario(e.target.value)}
+
+                        />
+
+                        {/* Select para escolher a Filial do Funcionario */}
+                        <select 
+                            className="funcionario-label" 
+                            value={filialSelecionada}
+                            onChange={(e) => setFilialSelecionada(e.target.value)}
+                            required
+                        >
+                            <option value="">Selecione a Filial</option>
+                            {listaFiliais.map((filial) => (
+                                <option key={filial.id_filial} value={filial.id_filial}>
+                                    {filial.id_filial}
+                                </option>
+                            ))}
+                        </select>
+
+                        
+                        <input 
+                            type="text" 
+                            placeholder='Digite a Data de Admissão'
+                            value={admissaoFuncionario}
+                            onChange={(e) => setAdmissaoFuncionario(e.target.value)}
+
+                        />
+
+                        <input 
+                            type="text" 
+                            placeholder='Digite a Data de Demissão'
+                            value={demissaoFuncionario}
+                            onChange={(e) => setDemissaoFuncionario(e.target.value)}
+
+                        />                        
+
+                        
+                        <button className='filial-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center' onClick={cadastrarFuncionario}>Cadastrar</button>
+
+                    </div>
+                </section>
+
+                {/* 📋 Tabela de funcionários */}
                 <section>
                     <h2 className="lista-funcionarios-title">Lista de Filiais</h2>
                     {/* 📊 Tabela de funcionários */}
@@ -221,8 +397,42 @@ function Funcionario() {
                                                 <form>
                                                     <input type="text" value={funcionarioEditando.nome} onChange={e => setFuncionarioEditando({...funcionarioEditando, nome: e.target.value})} placeholder="Nome" />
                                                     <input type="text" value={funcionarioEditando.cpf} onChange={e => setFuncionarioEditando({...funcionarioEditando, cpf: e.target.value})} placeholder="CPF" />
-                                                    <input type="number" value={funcionarioEditando.id_filial} onChange={e => setFuncionarioEditando({...funcionarioEditando, id_filial: e.target.value})} placeholder="ID Filial" />
-                                                    <input type="text" value={funcionarioEditando.status} onChange={e => setFuncionarioEditando({...funcionarioEditando, status: e.target.value})} placeholder="Status" />
+
+                                                    {/* Selecionar Filial */}
+                                                    <select className='funcionario-label'
+                                                        value={funcionarioEditando.id_filial}
+                                                        onChange={(e) =>
+                                                            setFuncionarioEditando({
+                                                                ...funcionarioEditando,
+                                                                id_filial: e.target.value
+                                                            })
+                                                        }
+                                                        required
+                                                    >
+                                                        <option value="">Selecione a Filial</option>
+                                                        {listaFiliais.map((filial) => (
+                                                            <option key={filial.id_filial} value={filial.id_filial}>
+                                                                {filial.id_filial}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+
+                                                    {/* Selecionar Status */}
+                                                    <select
+                                                        className="funcionario-label"
+                                                        value={funcionarioEditando.status || ""}
+                                                        onChange={(e) =>
+                                                            setFuncionarioEditando({
+                                                                ...funcionarioEditando,
+                                                                status: e.target.value
+                                                            })
+                                                        }
+                                                    >
+                                                        <option value="Ativo">Ativo</option>
+                                                        <option value="Inativo">Inativo</option>
+                                                    </select>
+
+
                                                     <input type="date" value={funcionarioEditando.admissao} onChange={e => setFuncionarioEditando({...funcionarioEditando, admissao: e.target.value})} />
                                                     <input type="number" value={funcionarioEditando.salario} onChange={e => setFuncionarioEditando({...funcionarioEditando, salario: e.target.value})} placeholder="Salário" />
                                                     <input type="date" value={funcionarioEditando.demissao} onChange={e => setFuncionarioEditando({...funcionarioEditando, demissao: e.target.value})} />
@@ -255,6 +465,7 @@ function Funcionario() {
                     </table>
                 </section>
 
+                
 
             </div>
         </section>
