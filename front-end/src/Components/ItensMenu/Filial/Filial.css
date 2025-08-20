@@ -5,6 +5,8 @@
   color: #333;
   font-size: 1.6rem;
   font-weight: bold;
+
+  display: block;
 }
 
 .filial-indicadores {
@@ -82,13 +84,15 @@
 /* Estilos para a tabela Filial --------------------------------------------------------------------------------*/
 .lista-filial-title {
   position: relative;
-  right: 26rem;
+  right: 26.2rem;
   margin-top: 3rem;
   margin-bottom: 1rem;
 
   color: #333;
   font-size: 1.6rem;
   font-weight: bold;
+
+  display: block;
 }
 
 .filial-table {
@@ -121,10 +125,13 @@
 /* Estilos para o Filtro de Filiais --------------------------------------------------------------------------------*/
 .filtrar-filial {
   margin-top: 3rem;
+  margin-left: -0.9rem;
 
   color: #333;
   font-size: 1.6rem;
   font-weight: bold;
+  
+  display: block;
 }
 
 /*---------------------------------------------------------------------------------------------------------------*/

@@ -23,7 +23,6 @@ function Funcionario() {
 // Estados relacionados ao cadastro de funcionários
    const [nomeFuncionario, setNomeFuncionario] = useState("");
    const [cpfFuncionario, setCpfFuncionario] = useState("");
-   const [telefoneFuncionario, setTelefoneFuncionario] = useState("");
    const [cargoFuncionario, setCargoFuncionario] = useState("");
    const [salarioFuncionario, setSalarioFuncionario] = useState("");
    const [statusFuncionario, setStatusFuncionario] = useState("");
@@ -440,6 +439,7 @@ function Funcionario() {
 
                                                     <div className="modal-botoes">
                                                         <button type="button" onClick={salvarEdicaoFuncionario}>Salvar</button>
+                                                        
                                                         <button type="button" onClick={() => setMostrarModalEdicao(false)}>Cancelar</button>
                                                     </div>
                                                 </form>

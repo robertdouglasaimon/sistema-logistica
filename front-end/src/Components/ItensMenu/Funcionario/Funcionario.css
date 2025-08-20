@@ -1,5 +1,5 @@
  .funcionarios-indicadores {
-  width: 100%;
+  width: 94%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -8,10 +8,11 @@
 }
 
 .funcionario-title {
-  margin: 15rem 0 0 -0.2rem;
-  color: black;
+  margin: 15rem 0 0 -0.8rem;
+  color: #333;
   font-size: 1.6rem;
 
+  display: block;
 }
 
 /* ESTILO DOS MOSTRADORES ------------------------------------------------ */
@@ -70,9 +71,11 @@
   right: 28.1rem;
   margin-top: 3rem;
   margin-bottom: 1rem;
-  color: #000;
+  color: #333;
   font-size: 1.6rem;
   font-weight: bold;
+
+  display: block;
 }
 
 .funcionario-table {
@@ -165,13 +168,14 @@
 
 /* Cadastro de Funcionario -----------------------------------------------------------------------*/
 .funcionario-cadastro-title {
-  position: relative;
-  right: 27.1rem;
   margin-top: 3rem;
   margin-bottom: 1rem;
-  color: #000;
+  margin-left: -51.2rem;
+  color: #333;
   font-size: 1.6rem;
   font-weight: bold;
+
+  display: block;
 }
 
 .funcionario-label {

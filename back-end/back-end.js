@@ -50,6 +50,47 @@ app.post('/Empresa', (req, res) => {
   });
 });
 
+// Criando rota/metodo para EDITAR Empresa
+app.put('/Empresa/:id_empresa', (req, res) => {
+  const id = req.params.id_empresa;
+  const { razao_social, cnpj, telefone, endereco, email, status } = req.body;
+  const sql = 
+  `UPDATE Empresa SET 
+    razao_social = ?,
+    cnpj = ?,
+    telefone = ?,
+    endereco = ?,
+    email = ?,
+    status = ?
+  WHERE id = ?`;
+
+  db.run(sql, [razao_social, cnpj, telefone, endereco, email, status, id ], function(err) {
+    if (err) {
+      console.error('Erro ao editar empresa:', err);
+      res.status(500).json({ erro: 'Erro ao editar empresa' });
+    } else {
+      res.status(200).json({ id: this.lastID });
+    }
+  });
+});
+
+// Criando rota/metodo para DELETAR Empresa
+app.delete('/Empresa/:id_empresa', (req, res) => {
+  const id = req.params.id_empresa;
+  const sql = "DELETE FROM Empresa WHERE id = ?";
+
+  db.run(sql, [id], function(err) {
+    if (err) {
+      console.error('Erro ao deletar empresa:', err);
+      res.status(500).json({ erro: 'Erro ao deletar empresa' });
+    } else {
+      res.status(200).json({ id: this.lastID });
+    }
+  });
+});
+
+
+
 // GET Filial
 app.get('/Filial', (req, res) => {
   db.all('SELECT * FROM Filial', [], (err, rows) => {

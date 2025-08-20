@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/* Resete do CSS */
+
+/* 📊 Indicadores: Clientes Ativos, Tipo: PJ/PF  */
+.clientes-indicadores {
+    width: 94%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 0;
+    height: 100%;
+}

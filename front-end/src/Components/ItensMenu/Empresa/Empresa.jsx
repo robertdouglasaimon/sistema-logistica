@@ -26,6 +26,9 @@ function Empresa() {
   const [mensagemErro, setMensagemErro] = useState(false); 
   const [mensagemErroTexto, setMensagemErroTexto] = useState(""); // 🆕 Novo estado para texto do erro
 
+  const [mostrarModalEdicao, setMostrarModalEdicao] = useState(false);
+  const [empresaEditando, setEmpresaEditando] = useState({});
+  
   
 // 🔍 Função de filtragem
   const filtrarEmpresas = () => {
@@ -47,6 +50,7 @@ function Empresa() {
 
   useEffect(() => {
     buscarEmpresas();
+    
   }, []);
 
 // Buscar empresas dentro do banco de dados:
@@ -69,6 +73,59 @@ function Empresa() {
     setEmail("");
     setStatus("");
   };
+
+
+/* 📝 Função para editar as empresas */
+    function abrirModalEdicao(empresa) {
+        setEmpresaEditando(empresa);
+        setMostrarModalEdicao(true);
+    }
+
+
+/* 🔄 Função para Salvar a Edição de Funcionários */
+  async function salvarEdicaoEmpresa() {
+      try {
+          const resposta = await fetch(`http://localhost:3001/Empresa/${empresaEditando.id}`, {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(empresaEditando)
+          });
+
+          if (resposta.ok) {
+              alert("Empresa editada com sucesso!");
+              setMostrarModalEdicao(false);
+              setEmpresaEditando({});
+              buscarEmpresas(); // Atualiza lista
+          } else {
+              alert("Erro ao editar empresa.");
+          }
+      } catch (error) {
+          console.error("Erro ao editar:", error);
+          alert("Erro na requisição.");
+      }
+  }
+
+  function excluirEmpresa(id) {
+    if(confirm("Tem certeza que deseja excluir essa empresa?")) {
+        fetch(`http://localhost:3001/Empresa/${id}`, {
+            method: "DELETE" // Usando o DELETE para excluir.
+        })
+        .then(resposta => {
+            if(resposta.ok) {
+                alert("Empresa excluida com sucesso!");
+                buscarEmpresas(); // 🔁 Atualiza a lista após exclusão
+            } else {
+                alert("Erro ao excluir empresa!");
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao excluir empresa:", error);
+            alert("Erro na requisição.");
+        });
+    }
+  }
 
   const salvarDados = (e) => {
     e.preventDefault();
@@ -211,6 +268,8 @@ const validandoDados = () => {
               <th>Endereço</th>
               <th>Email</th>
               <th>Status</th>
+              <th>Editar</th>
+              <th>Excluir</th>
             </tr>
           </thead>
           <tbody>
@@ -222,6 +281,63 @@ const validandoDados = () => {
                 <td>{empresa.endereco}</td>
                 <td>{empresa.email}</td>
                 <td>{empresa.status}</td>
+                <td>
+                  <button 
+                    className='filial-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center'
+                    onClick={() => abrirModalEdicao(empresa)}
+                    >
+                    Editar
+                  </button>
+                </td>
+                
+                <td>
+                  <button 
+                    className='filial-button bg-red-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-red-600 transition font-semibold text-center'
+                    onClick={() => excluirEmpresa(empresa.id)}
+                    >
+                    Excluir
+                  </button>
+                </td>
+
+              {mostrarModalEdicao && (
+              <div className="modal-empresa">
+                  <div className="modal-conteudo">
+                      <h2>Editar Empresa</h2>
+                      <form>
+                          <input type="text" value={empresaEditando.razao_social} onChange={e => setEmpresaEditando({...empresaEditando, razao_social: e.target.value})} placeholder="Razão Social" />
+                          <input type="text" value={empresaEditando.cnpj} onChange={e => setEmpresaEditando({...empresaEditando, cnpj: e.target.value})} placeholder="CNPJ" />
+                          <input type="text" value={empresaEditando.telefone} onChange={e => setEmpresaEditando({...empresaEditando, telefone: e.target.value})} placeholder="Telefone" />
+                          <input type="text" value={empresaEditando.endereco} onChange={e => setEmpresaEditando({...empresaEditando, endereco: e.target.value})} placeholder="Endereço" />
+                          <input type="text" value={empresaEditando.email} onChange={e => setEmpresaEditando({...empresaEditando, email: e.target.value})} placeholder="Email" />
+
+                          {/* Selecionar Status */}
+                          <select  className="status-select" value={empresaEditando.status} onChange={e => setEmpresaEditando({...empresaEditando, status: e.target.value})}>
+                              <option value="Ativo">Ativo</option>
+                              <option value="Inativo">Inativo</option>
+                          </select>
+                          <br />
+                          <br />
+
+                          
+                          <div className="modal-botoes">
+                              <button 
+                                type="button" 
+                                onClick={salvarEdicaoEmpresa}>
+                                  Salvar
+                              </button>
+
+                              <button 
+                                type="button" 
+                                onClick={() => setMostrarModalEdicao(false)}>
+                                  Cancelar
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+              )}
+
+
               </tr>
             ))}
           </tbody>
@@ -233,24 +349,59 @@ const validandoDados = () => {
         <h2 className="cadastro-empresa-title">Cadastro de Empresa</h2>
         <form onSubmit={salvarDados}>
           <div className="campos-cadastro-empresa">
+
             <label><b>Razão Social:</b>
-              <input className="cadastro-empresa-label" type="text" placeholder="Digite a Razão Social" value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)} />
+              <input 
+                className="cadastro-empresa-label" 
+                type="text" 
+                placeholder="Digite a Razão Social" 
+                value={razaoSocial} 
+                onChange={(e) => setRazaoSocial(e.target.value)} />
             </label>
+
             <label><b>CNPJ:</b>
-              <input className="cadastro-empresa-label" type="text" placeholder="Digite o CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} />
+              <input 
+                className="cadastro-empresa-label" 
+                type="text" 
+                placeholder="Digite o CNPJ" 
+                value={cnpj} 
+                onChange={(e) => setCnpj(e.target.value)} />
             </label>
+
             <label><b>Telefone:</b>
-              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+              <input 
+                className="cadastro-empresa-label" 
+                type="text" 
+                placeholder="Digite o Telefone" 
+                value={telefone} 
+                onChange={(e) => setTelefone(e.target.value)} />
             </label>
+
             <label><b>Endereço:</b>
-              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Endereço" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
+              <input 
+                className="cadastro-empresa-label" 
+                type="text" 
+                placeholder="Digite o Endereço" 
+                value={endereco} 
+                onChange={(e) => setEndereco(e.target.value)} />
             </label>
-            <label><b>Email:</b>
-              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+            <label>
+              <b>Email:</b>
+              <input 
+                className="cadastro-empresa-label" 
+                type="text" 
+                placeholder="Digite o Email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+              />
             </label>
-            <label><b>Status:</b>
-              <input className="cadastro-empresa-label" type="text" placeholder="Digite o Status" value={status} onChange={(e) => setStatus(e.target.value)} />
-            </label>
+
+            {/* Selecionar Status */}
+            <select className="status-select" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+            </select>
           </div>
 
           {/* MENSAGEM SUCESSO */}
