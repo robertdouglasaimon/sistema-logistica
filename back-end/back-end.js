@@ -242,7 +242,6 @@ app.put('/Funcionario/:id_funcionario', (req, res) => {
 
 
 
-
 // Criando metodo para DELETAR Funcionario
 app.delete('/Funcionario/:id_funcionario', (req, res) => {
   const id_funcionario = req.params.id_funcionario;
@@ -258,6 +257,19 @@ app.delete('/Funcionario/:id_funcionario', (req, res) => {
   });
 });
 
+
+
+// Criando rota para buscar Cliente
+app.get('/Cliente', (req, res) => {
+  db.all('SELECT * FROM Cliente', [], (err, rows) => {
+    if (err) {
+      console.error('Erro na consulta:', err);
+      res.status(500).send('Erro ao buscar Cliente');
+    } else {
+      res.json(rows);
+    }
+  });
+});
 
 
 

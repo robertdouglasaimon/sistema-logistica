@@ -9,4 +9,65 @@
     align-items: flex-start;
     padding: 2rem 0;
     height: 100%;
+    gap: 10px;
+    margin: 20px 0   
 }
+
+.clientes-title {
+  position: relative;
+  top: 16rem;
+  right: 1rem;
+  color: #333;
+  font-size: 1.6rem;
+  font-weight: bold;
+
+  display: block;
+}
+
+.clientes-indicadores {
+  flex: 1;
+  padding: 20px 190px 4px 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.indicador-clientes-card {
+  flex: 1;
+  padding: 20px 100px 4px 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.indicador-clientes-card.ativo {
+  background-color: #4cafa7; /* azul */
+}
+
+.indicador-clientes-card.inativo {
+  background-color: #e71c0d; /* vermelho */
+}
+
+.indicador-clientes-card.pj {
+  background-color: #ffb46e; /* amarelo */
+}
+
+.indicador-clientes-card.pf {
+  background-color: #c09674; /* bege */
+}
+
+.indicador-clientes-card.total {
+  background-color: #dd6503; /* laranja */
+}
+
+.indicador-clientes-titulo {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.indicador-clientes-valor {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/*---------------------------------------------*/
