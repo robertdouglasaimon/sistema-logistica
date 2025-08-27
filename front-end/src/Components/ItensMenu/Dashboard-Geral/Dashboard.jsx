@@ -9,6 +9,7 @@ import Topbar from "@/Components/Cabecalho/Topbar/Topbar";
 import Empresa from "@/Components/ItensMenu/Empresa/Empresa";
 import Filial from "@/Components/ItensMenu/Filial/Filial";
 import Funcionario from "@/Components/ItensMenu/Funcionario/Funcionario";
+import Clientes from "@/Components/ItensMenu/Clientes/Clientes";
 
 
 function Dashboard() {
@@ -26,6 +27,7 @@ function Dashboard() {
         {moduloAtivo === "empresa" && <Empresa />}
         {moduloAtivo === "filial" && <Filial />}
         {moduloAtivo === "funcionarios" && <Funcionario />}
+        {moduloAtivo === "clientes" && <Clientes />}
         {/* mais módulos */}
       </main>
     </div>

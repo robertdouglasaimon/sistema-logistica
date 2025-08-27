@@ -2,6 +2,7 @@ SELECT * FROM Usuario_Sistema;
 SELECT * FROM Empresa;
 SELECT * FROM Filial;
 SELECT * FROM Funcionario;
+SELECT * FROM Cliente;
 
 PRAGMA table_info(Filial);
 
@@ -147,3 +148,12 @@ SET
   admissao = '2023-05-01 10:00:00'
 WHERE id_funcionario = 1;
 
+/*--------------------------------------------------*/
+
+/* Tabela Cliente - Modificando */
+
+SELECT * FROM Cliente;
+ALTER TABLE Cliente ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT 'Ativo';
+ALTER TABLE Cliente ADD COLUMN tipo_empresa VARCHAR(20) NOT NULL DEFAULT 'PJ';
+UPDATE Cliente SET tipo_empresa = 'PF' WHERE id_cliente = 3;
+UPDATE Cliente SET status = 'Inativo'  WHERE id_cliente = 2;
