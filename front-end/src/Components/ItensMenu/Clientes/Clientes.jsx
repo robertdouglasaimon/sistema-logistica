@@ -40,8 +40,7 @@ function Clientes() {
     }, []);
 
     return (
-        <section className="clientes-container">
-            <h1 className="clientes-title">Clientes</h1>
+        <section className="clientes-container">        
             
         {/* 📊 Indicadores: Clientes Ativos, Tipo: PJ/PF  */}
             <section>
@@ -73,6 +72,31 @@ function Clientes() {
 
                 </div>
             </section>
+
+        {/* 🔍 Buscar Clientes */}
+            <section className="clientes-title">
+                <h1>Buscar Clientes</h1>
+                <div className="buscar-clientes">
+                    <input type="text" placeholder="Nome do Cliente" />
+                    <input type="text" placeholder='CNPJ' />
+                    <input type="text" placeholder='Tipo' />
+                    <button className='buscar-cliente-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center'>Filtrar</button>
+                    <button className='buscar-cliente-button bg-blue-500 text-white px-4 ml-[0.5rem] py-2 rounded hover:bg-blue-600 transition font-semibold text-center'>Limpar Filtro</button>
+                </div>
+            </section>
+
+        {/* 👤 Cadastrar Clientes */}
+            <section className="clientes-title">
+                <h2>Cadastrar Clientes</h2>
+            </section>
+
+         {/* 📋 Tabela de Clientes */}
+            <section className="clientes-title">
+                <h2>Tabela de Clientes</h2>
+            </section>
+
+
+        
 
 
         </section>
